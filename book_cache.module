@@ -17,6 +17,14 @@ function book_cache_node_presave($node) {
 }
 
 /**
+ * Implements hook_node_delete().
+ */
+function book_cache_node_delete($node) {
+  // make sure this is a book or in a book and not a new one
+  if (!empty($node->book['bid'])) {
+    _book_cache_cache_clear($node->book['bid'], TRUE);
+  }
+}
  * Implements hook_theme_registry_alter().
  */
 function book_cache_theme_registry_alter(&$theme_registry) {
